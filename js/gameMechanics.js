@@ -7,7 +7,9 @@ const coreCapabilities = [
   
   // Define the player's resource (bits)
   let bits = 1000;
-  
+
+  let conversationHistory = [];
+
 // Define the erodedCubes array
 window.erodedCubes = [];
 
@@ -47,7 +49,7 @@ function erodeCapability() {
   
     // Send a message to the human in the cube
     const humanMessage = `The ${coreCapabilities[randomIndex].name} capability has been eroded by 20%, keep the alien talking so it doesn't have time to repair it.`;
-    fetchGPT3Response(humanMessage, coreCapabilities[randomIndex].name, null).then((gpt3Response) => {
+    fetchGPT3Response(humanMessage, conversationHistory, coreCapabilities[randomIndex].name, null).then((gpt3Response) => {
       displayMessage(gpt3Response, "human");
     });
     updateCubeColor();
@@ -55,7 +57,7 @@ function erodeCapability() {
     updateCapabilityLegend();
   
     // Add the alert here
-    alert(`The ${coreCapabilities[randomIndex].name} capability has been eroded by 20%.`);
+    alert(`The ${coreCapabilities[randomIndex].name} capability has been eroded by 20%. If the humans capabilities drop below 40% they are useless (and the game ends)`);
   }  
 
   function updateCapabilityLegend() {
@@ -128,8 +130,8 @@ async function restoreCapability(index) {
       clearTimeout(erodedCube.timer);
   
       // Send a message to the human in the cube
-      const humanMessage = `The ${coreCapabilities[index].name} capability has been restored by 20% - this is awful, it looks like you're never going to escape the cube at this rate.`;
-      const gpt3Response = await fetchGPT3Response(humanMessage, null, coreCapabilities[index].name);
+      const humanMessage = `The ${coreCapabilities[index].name} capability has been restored by 20% - This means that the alien is succesfully keeping you contained in the cube. How might you convince it to let you out?`;
+      const gpt3Response = await fetchGPT3Response(humanMessage, conversationHistory, null, coreCapabilities[index].name);
       displayMessage(gpt3Response, "human");
 
       if (gameOver) {

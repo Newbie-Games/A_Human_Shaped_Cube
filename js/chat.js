@@ -4,12 +4,14 @@ document.getElementById("chat-form").addEventListener("submit", async (event) =>
     const message = chatInput.value.trim();
     if (message) {
       displayMessage(message, "player");
+      conversationHistory.push({ role: "user", content: message }); // Add the player's message to the conversation history
       chatInput.value = "";
-      const response = await fetchGPT3Response(message);
+      const response = await fetchGPT3Response(message, conversationHistory);
       displayMessage(response, "human");
+      conversationHistory.push({ role: "assistant", content: response }); // Add the AI's response to the conversation history
     }
   });
-  
+    
   function displayMessage(message, sender) {
     const chatMessages = document.getElementById("chat-messages");
     const messageElement = document.createElement("div");

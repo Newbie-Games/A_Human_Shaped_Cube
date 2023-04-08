@@ -5,6 +5,18 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById("cube-container").appendChild(renderer.domElement);
 
+
+window.addEventListener("resize", onWindowResize, false);
+
+function onWindowResize() {
+  // Update the camera aspect ratio and the projection matrix
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+
+  // Update the renderer size
+  renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
 // Create the cube structure
 const cubeSize = 1;
 const gap = 0.1;
@@ -119,7 +131,3 @@ function startErosionTimer() {
   initTimer();
 }
 
-// Call the animate function when the window has loaded
-window.onload = function() {
-  animate();
-};

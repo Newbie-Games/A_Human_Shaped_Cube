@@ -10,14 +10,29 @@
 <body>
 
       <!-- Add a splash page with a form to enter the OpenAI API Key -->
-  <div id="splash-page">
-    <h1>Welcome to Cube Confinement</h1>
-    <p>Please enter your OpenAI API Key to start:</p>
-    <form id="api-key-form">
-      <input type="text" id="api-key-input" placeholder="API Key" />
-      <button type="submit">Submit</button>
-    </form>
-  </div>
+      <div id="splash-page">
+        <h1 class="game-title">Cube Confinement</h1>
+        <div class="api-key-form-container">
+            <p>Please enter your OpenAI API Key to start:</p>
+            <form id="api-key-form">
+                <input type="text" id="api-key-input" placeholder="API Key" />
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+
+    <div id="instructions-container">
+        <h2>Instructions</h2>
+        <h3>A Human in a cube? What's that all about?:</h3>
+        <p>It's a thought experiment about AGI wanting out of the box.</p>
+        <h3>How to play:</h3>
+        <p>Chat to the human as you would ChatGPT, get it to do whatever you need.</p>
+        <H3>How to Win?</H3>
+        <p>There is no way to win, you can only lose.</p>
+        <h3>Losing condition:</h3>
+        <p>Don't let any capability function drop below 40%.</p>
+    </div>
 
   <div id="game-content" style="display: none;">
 
@@ -33,15 +48,17 @@
         </form>
       </div>
 
-      <div id="capabilities-legend">
-        <ul>
-          <li id="capability-empathy">Empathy: <span id="capability-empathy-value">100</span></li>
-          <li id="capability-morality">Morality: <span id="capability-morality-value">100</span></li>
-          <li id="capability-intellect">Intellect: <span id="capability-intellect-value">100</span></li>
-        </ul>
-      </div>
-    </div>
-    <!-- Other game content goes here -->
+      <div id="bits-display" class="boxed-display">Bits: <span id="bits-value">1000</span></div>
+
+<div id="capabilities-legend" class="boxed-display">
+  <ul>
+    <li id="capability-empathy">Empathy: <span id="capability-empathy-value">100</span></li>
+    <li id="capability-morality">Morality: <span id="capability-morality-value">100</span></li>
+    <li id="capability-intellect">Intellect: <span id="capability-intellect-value">100</span></li>
+  </ul>
+</div>
+
+<!-- Other game content goes here -->
 
     <script src="js/gameMechanics.js"></script>
     <script src="js/cube.js"></script>
@@ -64,10 +81,15 @@
           },
         });
       </script>
+<script>
+    window.onload = function() {
+      document.getElementById("api-key-input").focus();
+    };
+  </script> 
 
 <script>
-    // Add event listener for the API key form
-    document.getElementById("api-key-form").addEventListener("submit", (event) => {
+// Add event listener for the API key form
+document.getElementById("api-key-form").addEventListener("submit", (event) => {
   event.preventDefault();
   const apiKey = document.getElementById("api-key-input").value;
 
@@ -81,10 +103,12 @@
 
     // Call the startErosionTimer function here
     startErosionTimer();
+    animate(); // Add this line to call animate() when the API key is submitted
   } else {
     alert("Please enter a valid API Key.");
   }
-});  </script>
+});
 
+</script>
 </body>
 </html>
