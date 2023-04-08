@@ -58,7 +58,7 @@ As the Alien, you can restore eroded capabilities by spending bits. Keep the con
 - CSS3
 - JavaScript
 - Three.js
-- OpenAI GPT-3
+- OpenAI GPT-3.5 Turbo
 
 ## Files and Folders Structure
 
