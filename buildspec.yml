@@ -3,10 +3,17 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 12
+      nodejs: 14
+  pre_build:
+    commands:
+      - echo Installing dependencies...
+      - npm ci
   build:
     commands:
-      - echo "Nothing to build for a static website"
+      - echo Build started on `date`
+      - echo Compiling the code...
+      # Add any build commands you need here
   post_build:
     commands:
-      - aws s3 sync . s3://newbie.games --exclude "buildspec.yml" --exclude ".git/*" --delete
+      - echo Build completed on `date`
+      - aws s3 sync . s3://newbie.works --exclude "buildspec.yml" --exclude ".git/*" --delete
