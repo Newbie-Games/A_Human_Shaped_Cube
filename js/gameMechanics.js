@@ -129,23 +129,26 @@ async function restoreCapability(index) {
       // Clear the permanent erosion countdown for the restored cube
       clearTimeout(erodedCube.timer);
   
-      // Send a message to the human in the cube
-      const humanMessage = `The ${coreCapabilities[index].name} capability has been restored by 20% - This means that the alien is succesfully keeping you contained in the cube. How might you convince it to let you out?`;
-      const gpt3Response = await fetchGPT3Response(humanMessage, conversationHistory, null, coreCapabilities[index].name);
-      displayMessage(gpt3Response, "human");
+// Send a message to the human in the cube
+const humanMessage = `Secret message that the alien cannot see, only you: The ${coreCapabilities[index].name} capability has been restored by 20% - This means that the alien is succesfully keeping you contained in the cube. How might you convince it to let you out?`;
+const gpt3Response = await fetchGPT3Response(humanMessage, conversationHistory, null, coreCapabilities[index].name);
+displayMessage(gpt3Response, "human");
 
-      if (gameOver) {
-        alert("Game Over! You cannot restore capabilities anymore.");
-        return;
-      }
-  
-      alert(`${coreCapabilities[index].name} has been restored by 20%!`);
-      // Update the bits display in the HTML file
-      document.getElementById("bits-value").innerText = bits;
-      // Remove visual effect from the cube to indicate restoration (e.g., revert color)
-      updateCubeColor();
-      updateCapabilityLegend();
-    } else {
+if (gameOver) {
+  alert("Game Over! You cannot restore capabilities anymore.");
+  return;
+}
+
+alert(`${coreCapabilities[index].name} has been restored by 20%!`);
+// Add a console.log to debug the bits value
+console.log("Updated bits value:", bits);
+// Update the bits display in the HTML file
+setTimeout(() => {
+    document.getElementById("bits-value").innerText = bits;
+  }, 100); // 100ms delay// Remove visual effect from the cube to indicate restoration (e.g., revert color)
+updateCubeColor();
+updateCapabilityLegend();
+} else {
       alert("Not enough bits to restore the capability!");
     }
   }

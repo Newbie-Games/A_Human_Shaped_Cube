@@ -103,7 +103,7 @@ body {
     width: 300px;
     height: 400px;
     border: 1px solid #ccc;
-    background-color: #fff;
+    background-color: #0e0101;
     display: flex;
     flex-direction: column;
     z-index: 100; /* Set z-index to 1 to place the chat above other elements */
@@ -179,3 +179,32 @@ body {
   top: 20px;
   left: 20px;
 }
+
+@media (max-width: 767px) {
+    #instructions-container {
+        position: fixed;
+        top: 50%;
+        left: 50%; /* Change this line */
+        width: 350px;
+        background-color: black;
+        color: white;
+        padding: 10px;
+        border: 1px solid white;
+        border-radius: 5px;
+        z-index: 100;
+        transform: translate(-50%, -50%); /* Change this line */
+      }
+
+    #chat-container {
+      width: 100%;
+      right: 0;
+      bottom: 0;
+      height: 300px;
+    }
+  
+    #capabilities-legend {
+      top: 60px;
+      right: 20px;
+    }
+  }
+   

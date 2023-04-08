@@ -23,6 +23,7 @@
 
 
     <div id="instructions-container">
+        <button id="close-instructions" style="position: absolute; top: 5px; right: 5px;">&times;</button>
         <h2>Instructions</h2>
         <h3>A Human in a cube? What's that all about?:</h3>
         <p>It's a thought experiment about AGI wanting out of the box.</p>
@@ -32,13 +33,11 @@
         <p>There is no way to win, you can only lose.</p>
         <h3>Losing condition:</h3>
         <p>Don't let any capability function drop below 40%.</p>
-    </div>
+    </div></div>
 
   <div id="game-content" style="display: none;">
 
     <div id="cube-container"></div>
-
-    <div id="bits-display">Bits: <span id="bits-value">1000</span></div>
 
     <div id="chat-container">
         <div id="chat-messages"></div>
@@ -52,9 +51,9 @@
 
 <div id="capabilities-legend" class="boxed-display">
   <ul>
-    <li id="capability-empathy">Empathy: <span id="capability-empathy-value">100</span></li>
-    <li id="capability-morality">Morality: <span id="capability-morality-value">100</span></li>
-    <li id="capability-intellect">Intellect: <span id="capability-intellect-value">100</span></li>
+    <li id="capability-empathy">Defense Array 1: <span id="capability-empathy-value">100</span></li>
+    <li id="capability-morality">Defense Array 2:- Morality <span id="capability-morality-value">100</span></li>
+    <li id="capability-intellect">Defense Array 3: <span id="capability-intellect-value">100</span></li>
   </ul>
 </div>
 
@@ -110,5 +109,13 @@ document.getElementById("api-key-form").addEventListener("submit", (event) => {
 });
 
 </script>
+
+<script>
+    // Add event listener for the close button of the instructions container
+    document.getElementById("close-instructions").addEventListener("click", () => {
+      document.getElementById("instructions-container").style.display = "none";
+    });
+  </script>
+
 </body>
 </html>
