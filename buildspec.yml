@@ -1,0 +1,12 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 12
+  build:
+    commands:
+      - echo "Nothing to build for a static website"
+  post_build:
+    commands:
+      - aws s3 sync . s3://newbie.games --exclude "buildspec.yml" --exclude ".git/*" --delete
