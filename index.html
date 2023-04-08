@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/interact.js/1.10.11/interact.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cube Confinement</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div id="cube-container"></div>
+
+    <div id="bits-display">Bits: <span id="bits-value">1000</span></div>
+
+    <div id="chat-container">
+        <div id="chat-messages"></div>
+        <form id="chat-form">
+          <input type="text" id="chat-input" placeholder="Type your message..." />
+          <button type="submit">Send</button>
+        </form>
+      </div>
+
+      <div id="capabilities-legend">
+        <ul>
+          <li id="capability-empathy">Empathy: <span id="capability-empathy-value">100</span></li>
+          <li id="capability-morality">Morality: <span id="capability-morality-value">100</span></li>
+          <li id="capability-intellect">Intellect: <span id="capability-intellect-value">100</span></li>
+        </ul>
+      </div>
+      
+    <!-- Other game content goes here -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="js/gameMechanics.js"></script>
+    <script src="js/cube.js"></script>
+    <script src="js/gpt3.js"></script>
+    <script src="js/chat.js"></script>
+    <script>
+        interact("#chat-container").draggable({
+          listeners: {
+            move(event) {
+              const target = event.target;
+              const x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx;
+              const y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
+      
+              target.style.transform = `translate(${x}px, ${y}px)`;
+      
+              target.setAttribute("data-x", x);
+              target.setAttribute("data-y", y);
+            },
+          },
+        });
+      </script>
+
+</body>
+</html>
