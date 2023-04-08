@@ -1,6 +1,16 @@
+let apiKey = ""; // Initialize the apiKey variable
+
+function setGPT3ApiKey(key) {
+  apiKey = key;
+}
+
 async function fetchGPT3Response(prompt, erodedCapability = null, restoredCapability = null) {
-    const apiKey = "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"; // Replace with your actual API key
-  
+async function fetchGPT3Response(prompt, erodedCapability = null, restoredCapability = null) {
+  // Add erodedCapability or restoredCapability prompt based on input
+  // ... (rest of your fetchGPT3Response function)
+}
+
+
     // Add erodedCapability or restoredCapability prompt based on input
     let erodedOrRestoredPrompt = "";
     if (erodedCapability) {

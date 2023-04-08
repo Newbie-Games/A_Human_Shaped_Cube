@@ -59,12 +59,6 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-// Event listeners for mouse movement
-document.addEventListener("mousemove", (event) => {
-  group.rotation.y = (event.clientX / window.innerWidth) * Math.PI * 2;
-  group.rotation.x = (event.clientY / window.innerHeight) * Math.PI * 2;
-});
-
 // Add raycaster and mouse vector for handling click events
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
@@ -74,6 +68,9 @@ document.addEventListener("mousedown", onDocumentMouseDown, false);
 
 function onDocumentMouseDown(event) {
   event.preventDefault();
+  if (gameOver) {
+    return;
+  }
 
   // Check if the clicked element is inside the chat window, and if so, return early
   const chatContainer = document.getElementById("chat-container");
@@ -117,5 +114,12 @@ function animate() {
   renderer.render(scene, camera);
 }
 
-animate();
-initTimer();
+// Add a function to start the erosion timer
+function startErosionTimer() {
+  initTimer();
+}
+
+// Call the animate function when the window has loaded
+window.onload = function() {
+  animate();
+};
