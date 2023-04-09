@@ -88,4 +88,4 @@ If you have any questions, suggestions, or issues with the project, please feel 
 
 - Your Name: alfie@newbie.games
 - Project Repository: 
-https://github.com/Newbie-Games/HumanCube/
+https://github.com/Newbie-Games/A_Human_Shaped_Cube
