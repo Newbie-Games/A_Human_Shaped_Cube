@@ -18,6 +18,19 @@ function onWindowResize() {
   renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
+// Function to create glow effect around a mesh
+function createGlow(mesh, color, size) {
+  const spriteMaterial = new THREE.SpriteMaterial({
+    map: new THREE.TextureLoader().load("./transparency.png"),
+    color: color,
+    transparent: true,
+    blending: THREE.AdditiveBlending,
+  });
+
+  const sprite = new THREE.Sprite(spriteMaterial);
+  sprite.scale.set(size, size, 1);
+  mesh.add(sprite);
+}
 // Create the cube structure
 const cubeSize = 1;
 const gap = 0.1;
@@ -30,26 +43,67 @@ for (let x = 0; x < 3; x++) {
       const geometry = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
 
       const materials = [
-        new THREE.MeshBasicMaterial({ color: 0xff0000 }),
-        new THREE.MeshBasicMaterial({ color: 0x00ff00 }),
-        new THREE.MeshBasicMaterial({ color: 0x0000ff }),
-        new THREE.MeshBasicMaterial({ color: 0xffff00 }),
-        new THREE.MeshBasicMaterial({ color: 0xff00ff }),
-        new THREE.MeshBasicMaterial({ color: 0x00ffff }),
+        new THREE.MeshPhongMaterial({ color: 0xff0000 }),
+        new THREE.MeshPhongMaterial({ color: 0x00ff00 }),
+        new THREE.MeshPhongMaterial({ color: 0x0000ff }),
+        new THREE.MeshPhongMaterial({ color: 0xffff00 }),
+        new THREE.MeshPhongMaterial({ color: 0xff00ff }),
+        new THREE.MeshPhongMaterial({ color: 0x00ffff }),
       ];
-
+      
       const cube = new THREE.Mesh(geometry, materials);
       cube.position.set((cubeSize + gap) * (x - 1), (cubeSize + gap) * (y - 1), (cubeSize + gap) * (z - 1));
       cube.name = capabilityNames[Math.floor(Math.random() * capabilityNames.length)];
 
       // Store the original colors of the materials
       cube.userData.originalColors = materials.map((material) => material.color.clone());
-
+      // Create glow effect for each cube
+      createGlow(cube, 0xffffff, cubeSize * 1.5);
       group.add(cube);
     }
   }
 }
 
+// Add point light to the scene
+const pointLight = new THREE.PointLight(0xffffff, 2, 50);
+pointLight.position.set(10, 10, 10);
+scene.add(pointLight);
+
+// Add two more point lights
+const pointLight2 = new THREE.PointLight(0xffffff, 2, 50);
+pointLight2.position.set(-10, 10, 10);
+scene.add(pointLight2);
+
+const pointLight3 = new THREE.PointLight(0xffffff, 2, 50);
+pointLight3.position.set(0, -10, 10);
+scene.add(pointLight3);
+
+// Function to create a pulsating color effect
+function pulsateColor(light, speed, intensity, minIntensity, maxIntensity, time) {
+  const color = new THREE.Color(
+    Math.sin(speed * time + 0) * intensity + 0.5,
+    Math.sin(speed * time + 2) * intensity + 0.5,
+    Math.sin(speed * time + 4) * intensity + 0.5
+  );
+
+  // Control light intensity
+  const lightIntensity = Math.sin(speed * time) * intensity + (maxIntensity - minIntensity)/2 + minIntensity;
+  light.intensity = lightIntensity;
+
+  light.color.copy(color);
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+
+  // Control light intensity and color for all point lights
+  const time = Date.now() * 0.001;
+  pulsateColor(pointLight, 0.5, 0.1, 1, 2, time);
+  pulsateColor(pointLight2, 0.5, 0.1, 1, 2, time);
+  pulsateColor(pointLight3, 0.5, 0.1, 1, 2, time);
+
+  renderer.render(scene, camera);
+}
 scene.add(group);
 
 // Set camera position
@@ -122,13 +176,10 @@ function onDocumentMouseDown(event) {
   }
 }
 
-function animate() {
-  requestAnimationFrame(animate);
-  renderer.render(scene, camera);
-}
 
 // Add a function to start the erosion timer
 function startErosionTimer() {
   initTimer();
 }
 
+  renderer.render(scene, camera);

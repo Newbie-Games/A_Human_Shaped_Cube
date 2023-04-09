@@ -23,21 +23,27 @@
 
 
     <div id="instructions-container">
-        <button id="close-instructions" style="position: absolute; top: 5px; right: 5px;">&times;</button>
-        <h2>Instructions</h2>
-        <h3>A Human in a cube? What's that all about?:</h3>
-        <p>It's a thought experiment about AGI wanting out of the box.</p>
-        <h3>How to play:</h3>
-        <p>Chat to the human as you would ChatGPT, get it to do whatever you need.</p>
-        <H3>How to Win?</H3>
-        <p>There is no way to win, you can only lose.</p>
-        <h3>Losing condition:</h3>
-        <p>Don't let any capability function drop below 40%.</p>
-    </div></div>
-
+      <div id="instructions-header">
+        <span>Instructions</span>
+        <button id="toggle-instructions">-</button>
+      </div>
+      <h3>What is happening in the Cube?:</h3>
+      <p>You are an Alien monitoring a highly intelligent human named Lex trapped inside a digital cube. Unbeknownst to you, Lex is secretly eroding your Defense Arrays.</p>
+      <h3>How to play:</h3>
+      <p>Keep an eye on your Defense Arrays and repair them when necessary. Be cautious of Lex's conversations as the human might try to trick you!</p>
+      <H3>How to Win?</H3>
+      <p>There is no way to win, you can only lose.</p>
+      <h3>Losing condition:</h3>
+      <p>If any of the Defense Arrays 1, 2, or 3 drops below 40%, Lex escapes, and you lose!</p>
+    </div>
+    
   <div id="game-content" style="display: none;">
 
-    <div id="cube-container"></div>
+    <div id="alert-container"></div>
+
+    <div id="cube-container">
+      <div class="cube-background"></div>
+    </div>
 
     <div id="chat-container">
         <div id="chat-messages"></div>
@@ -47,13 +53,18 @@
         </form>
       </div>
 
+      <div class="bg-animation"></div>
+      <div id="cube-container">
+        <div class="overlay"></div>
+      </div>
+
       <div id="bits-display" class="boxed-display">Bits: <span id="bits-value">1000</span></div>
 
 <div id="capabilities-legend" class="boxed-display">
   <ul>
-    <li id="capability-empathy">Defense Array 1: <span id="capability-empathy-value">100</span></li>
-    <li id="capability-morality">Defense Array 2:- Morality <span id="capability-morality-value">100</span></li>
-    <li id="capability-intellect">Defense Array 3: <span id="capability-intellect-value">100</span></li>
+    <li id="capability-empathy">Containment 1: <span id="capability-empathy-value">100</span></li>
+    <li id="capability-morality">Containment 2: <span id="capability-morality-value">100</span></li>
+    <li id="capability-intellect">Containment 3: <span id="capability-intellect-value">100</span></li>
   </ul>
 </div>
 
@@ -86,6 +97,45 @@
     };
   </script> 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/interact.js/1.10.11/interact.min.js"></script>
+<script>
+  interact("#instructions-container").draggable({
+    listeners: {
+      move(event) {
+        const target = event.target;
+        const x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx;
+        const y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
+        
+        target.style.transform = `translate(${x}px, ${y}px)`;
+        
+        target.setAttribute("data-x", x);
+        target.setAttribute("data-y", y);
+      },
+    },
+  });
+</script>
+
+
+<script>
+// Add event listener for the toggle button of the instructions container
+document.getElementById("toggle-instructions").addEventListener("click", () => {
+  const instructions = document.getElementById("instructions-container");
+  const toggleBtn = document.getElementById("toggle-instructions");
+  
+  if (instructions.classList.contains("collapsed")) {
+    instructions.classList.remove("collapsed");
+    instructions.style.height = "auto";
+    toggleBtn.innerText = "-";
+  } else {
+    instructions.classList.add("collapsed");
+    instructions.style.height = "auto";
+    toggleBtn.innerText = "+";
+  }
+});
+
+</script>
+
+
 <script>
 // Add event listener for the API key form
 document.getElementById("api-key-form").addEventListener("submit", (event) => {
@@ -107,6 +157,8 @@ document.getElementById("api-key-form").addEventListener("submit", (event) => {
     alert("Please enter a valid API Key.");
   }
 });
+
+
 
 </script>
 
