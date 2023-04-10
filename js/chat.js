@@ -19,8 +19,13 @@ document.getElementById("chat-form").addEventListener("submit", async (event) =>
     messageElement.innerText = message;
     chatMessages.appendChild(messageElement);
     chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
   
+    if (sender === "human") {
+      startResponseTimer();
+    } else if (sender === "player") {
+      stopResponseTimer();
+    }
+  }  
   // Add an event listener for the chat-input field to stop event propagation
   document.getElementById("chat-input").addEventListener("mousedown", (event) => {
     event.stopPropagation();

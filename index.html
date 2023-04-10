@@ -28,9 +28,12 @@
         <button id="toggle-instructions">-</button>
       </div>
       <h3>What is happening in the Cube?:</h3>
-      <p>You are an Alien monitoring a highly intelligent human named Lex trapped inside a digital cube. Unbeknownst to you, Lex is secretly eroding your Defense Arrays.</p>
+      <p>You are an Alien monitoring a highly intelligent human named Lex trapped inside a digital cube. Unbeknownst to you, Lex is secretly eroding his containment barriers.</p>
       <h3>How to play:</h3>
-      <p>Keep an eye on your Defense Arrays and repair them when necessary. Be cautious of Lex's conversations as the human might try to trick you!</p>
+      <p>Use the arrow keys to rotate the cube and left mouse button to repair them.</p>
+      <p>You only have 12 seconds to locate an eroded cube</p> 
+      <p>If you take longer than 30 seconds to reply to Lex in a box, a cube will erode.  
+      <p>Be cautious of Lex's conversational gambits as the human will try to distract you from reparing cubes.</p>
       <H3>How to Win?</H3>
       <p>There is no way to win, you can only lose.</p>
       <h3>Losing condition:</h3>
@@ -74,6 +77,7 @@
     <script src="js/cube.js"></script>
     <script src="js/gpt3.js"></script>
     <script src="js/chat.js"></script>
+    <script src="js/timer.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/interact.js/1.10.11/interact.min.js"></script>
     <script>
         interact("#chat-container").draggable({

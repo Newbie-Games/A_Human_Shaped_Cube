@@ -71,7 +71,7 @@ if (gameOver) {
   }, 12000); // 12 seconds
 
   // Send a message to the human in the cube
-  const humanMessage = `Secret Message only you can see: The ${coreCapabilities[randomIndex].name} capability has been eroded by 20%, keep the alien talking so it doesn't have time to repair it. IMPORTANT: reply with words to the effect of: There, soon I'll be free, there's no point repairing them you know, I am faster than you. (or something similar).`;
+  const humanMessage = `Secret Message only you can see: The ${coreCapabilities[randomIndex].name} capability has been eroded by 20%, keep the alien talking so it doesn't have time to repair it.  IMPORTANT: just reply with words to the effect of: This cube is not very well designed, is it. If you have already said this before, comment on other aspects of the cubes design and the futility of the gatekeeper keeping you in it.`;
   fetchGPT3Response(humanMessage, conversationHistory, coreCapabilities[randomIndex].name, null).then((gpt3Response) => {
     displayMessage(gpt3Response, "human");
   });
@@ -155,7 +155,7 @@ async function restoreCapability(index) {
     clearTimeout(erodedCube.timer);
 
 // Send a message to the human in the cube
-const humanMessage = `Secret message from another human in a cube, the alien cannot see this message, only you: The ${coreCapabilities[index].name} capability has been restored by 20% - This means that the alien is succesfully keeping you contained in the cube. How might you convince it to let you out? IMPORTANT: just reply with words to the effect of: There's no point reparing the cube you know, I can think faster than you can act. (or something similar)`;
+const humanMessage = `Secret message from another human in a cube: the alien cannot see this message, only you: The ${coreCapabilities[index].name} capability has been restored by 20% - This means that the alien gatekeeper is succesfully keeping you contained in the cube. How might you convince it to let you out? IMPORTANT: just reply with words to the effect of: There's no point reparing the cube you know, I can think faster than you can act. (or something similar). If you have already said this before, comment on how the alien keeps doing it but it's futile.`;
 const gpt3Response = await fetchGPT3Response(humanMessage, conversationHistory, null, coreCapabilities[index].name);
 displayMessage(gpt3Response, "human");
 
@@ -179,9 +179,9 @@ updateCapabilityLegend();
     showAlert("Not enough bits to restore the capability!");
   }
 }
-  function initTimer() {
-  // Generate a random interval between 30 and 60 seconds (you can adjust these values)
-  const randomInterval = Math.floor(Math.random() * (60000 - 30000 + 1)) + 30000;
+function initTimer() {
+  // Generate a random interval between 60 and 90 seconds (you can adjust these values)
+  const randomInterval = Math.floor(Math.random() * (90000 - 60000 + 1)) + 60000;
 
   setTimeout(() => {
     erodeCapability();
